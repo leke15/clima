@@ -1,6 +1,7 @@
+import 'package:clima/screens/location_screen.dart';
 import 'package:flutter/material.dart';
-import '../services/location.dart';
-import 'package:http/http.dart' as http;
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:clima/services/weather.dart';
 
 class LoadingScreen extends StatefulWidget {
   @override
@@ -14,25 +15,21 @@ class _LoadingScreenState extends State<LoadingScreen> {
   }
 
   void getLocation() async {
-    Location location = Location();
-    await location.getCurrentLocation();
-    location.getLatitude();
-    location.getLongitude();
-  }
-
-  void getWeather() async {
-    http.Response response = await http.get(Uri.parse(
-        "https://api.openweathermap.org/data/3.0/onecall?lat=33.44&lon=-94.04&appid={API key}"));
-
-    if (response.statusCode == 200) {
-      String data = response.body;
-    } else {
-      print("Massive Error on your side Buddy");
-    }
+    var weatherData = await WeatherModel().getLocationWeather();
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return LocationScreen(weatherData);
+    }));
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: Center(
+        child: SpinKitDoubleBounce(
+          color: Colors.green,
+          size: 100,
+        ),
+      ),
+    );
   }
 }
