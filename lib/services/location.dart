@@ -6,7 +6,6 @@ class Location {
 
   Future<void> getCurrentLocation() async {
     try {
-      LocationPermission permission = await Geolocator.requestPermission();
       Position position = await Geolocator.getCurrentPosition(
           locationSettings:
               LocationSettings(accuracy: LocationAccuracy.bestForNavigation));
@@ -17,11 +16,11 @@ class Location {
     }
   }
 
-  void getLatitude() {
-    print("Latitude: $_latitude");
+  double getLatitude() {
+    return _latitude;
   }
 
-  void getLongitude() {
-    print("Longitude: $_longitude");
+  double getLongitude() {
+    return _longitude;
   }
 }
