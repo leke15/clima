@@ -33,7 +33,17 @@ class _CityScreenState extends State<CityScreen> {
               ),
               Container(
                 padding: EdgeInsets.all(20.0),
-                child: null,
+                child: TextField(
+                  decoration: InputDecoration(
+                    filled: true,
+                    icon: Icon(Icons.location_city),
+                    border: OutlineInputBorder(),
+                    hintText: "Enter Your City",
+                  ),
+                  onChanged: (value) {
+                    print(value);
+                  },
+                ),
               ),
               TextButton(
                 onPressed: () {},
